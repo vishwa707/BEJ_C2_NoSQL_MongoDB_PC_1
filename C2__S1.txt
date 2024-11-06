@@ -1,0 +1,57 @@
+1. Create a database named address_db
+use address_db
+2. Insert values using the InsertOne and InsertMany commands into the address collection.
+
+3.Atleast 5 address objects must be inserted
+db.address.insertMany([
+  {
+    houseNo: 23,
+    streetName: 'Main Dave Street',
+    city: 'NY',
+    zipCode: 7002
+  },
+  {
+    houseNo: 15,
+    streetName: 'Baker Street',
+    city: 'Rochester',
+    zipCode: 7001
+  },
+  {
+    houseNo: 42,
+    streetName: 'Elm Street',
+    city: 'New York',
+    zipCode: 10001
+  },
+  {
+    houseNo: 56,
+    streetName: 'King Street',
+    city: 'Kingston',
+    zipCode: 11223
+  },
+  {
+    houseNo: 78,
+    streetName: 'Park Avenue',
+    city: 'Rochester',
+    zipCode: 14623
+  }
+]);
+
+4.Write MongoDB queries to:
+
+#Display all addresses in a formatted manner.
+db.address.find().pretty()
+
+#Find the address by city Rochester.
+db.address.find({ city: 'Rochester' }).pretty()
+
+
+#Count the numner of addresses from the city New York.
+db.address.countDocuments({ city: 'New York' })
+
+#Find the address by city Rochester, New York and Kingston.
+db.address.find({ city: { $in: ['Rochester', 'New York', 'Kingston'] } }).pretty()
+
+
+#Delete all documents with city New York.
+db.address.deleteMany({ city: 'New York' })
+
