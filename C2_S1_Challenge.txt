@@ -1,0 +1,106 @@
+#Add at least 5 restaurant documents to the restaurants collection
+[
+    {
+        "address": {
+            "building": "23, Acher Main",
+            "street": "marble drive",
+            "zipcode": "403204"
+        },
+        "type_of_restaurant": "Bakery",
+        "cuisine": ["pastry", "dessert"],
+        "state": "Oklahoma",
+        "grades": [
+            { "date": { "$date": 1393804800000 }, "grade": "A", "score": 2 },
+            { "date": { "$date": 1343325800000 }, "grade": "A", "score": 6 },
+            { "date": { "$date": 1356244800000 }, "grade": "A", "score": 10 },
+            { "date": { "$date": 1562674800000 }, "grade": "A", "score": 9 },
+            { "date": { "$date": 1414552800000 }, "grade": "B", "score": 14 }
+        ],
+        "name": "Park Bake Shop",
+        "restaurant_id": "30075445"
+    },
+    {
+        "address": {
+            "building": "100",
+            "street": "Main St",
+            "zipcode": "403204"
+        },
+        "type_of_restaurant": "Bakery",
+        "cuisine": ["pastry", "bread"],
+        "state": "Oklahoma",
+        "grades": [
+            { "date": { "$date": 1416259200000 }, "grade": "A", "score": 7 },
+            { "date": { "$date": 1363737600000 }, "grade": "A", "score": 5 }
+        ],
+        "name": "Bread Bliss",
+        "restaurant_id": "30075446"
+    },
+    {
+        "address": {
+            "building": "150",
+            "street": "Liberty St",
+            "zipcode": "403205"
+        },
+        "type_of_restaurant": "Deli",
+        "cuisine": ["Italian", "sandwiches"],
+        "state": "Oklahoma",
+        "grades": [
+            { "date": { "$date": 1472688000000 }, "grade": "B", "score": 8 },
+            { "date": { "$date": 1504224000000 }, "grade": "A", "score": 15 }
+        ],
+        "name": "Italian Deli",
+        "restaurant_id": "30075447"
+    },
+    {
+        "address": {
+            "building": "200",
+            "street": "Central Park Ave",
+            "zipcode": "403204"
+        },
+        "type_of_restaurant": "Cafe",
+        "cuisine": ["French", "desserts"],
+        "state": "Oklahoma",
+        "grades": [
+            { "date": { "$date": 1435363200000 }, "grade": "A", "score": 12 },
+            { "date": { "$date": 1449014400000 }, "grade": "A", "score": 18 }
+        ],
+        "name": "French Delight",
+        "restaurant_id": "30075448"
+    },
+    {
+        "address": {
+            "building": "300",
+            "street": "West Broadway",
+            "zipcode": "403206"
+        },
+        "type_of_restaurant": "Bakery",
+        "cuisine": ["bread", "sandwich"],
+        "state": "Oklahoma",
+        "grades": [
+            { "date": { "$date": 1530403200000 }, "grade": "B", "score": 20 },
+            { "date": { "$date": 1554076800000 }, "grade": "C", "score": 25 }
+        ],
+        "name": "Bread House",
+        "restaurant_id": "30075449"
+    }
+]
+
+
+#Display All Restaurants That Are of Type Bakery
+{ "type_of_restaurant": "Bakery" }
+
+#Display Restaurants That Serve Italian or French Cuisine
+{ "cuisine": { "$in": ["Italian", "French"] } }
+
+#Display the Fields restaurant_id and scores for Zipcode 403204
+{ "address.zipcode": "403204" }
+#Then, go to "Project" and specify: { "restaurant_id": 1, "grades": 1 }
+
+#Display All Restaurants That Have a Grade Score Greater Than 10
+{ "grades.score": { "$gt": 10 } }
+
+#Display the Sum of All Scores of Restaurants
+[
+    { "$unwind": "$grades" },
+    { "$group": { "_id": null, "totalScore": { "$sum": "$grades.score" } } }
+]
